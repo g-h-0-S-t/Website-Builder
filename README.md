@@ -8,6 +8,7 @@
 ## Step 3: Run 'npm install nodemon -g' in terminal
 ## Step 4: Run 'nodemon server.js' in terminal
 ## Step 5: Goto 'localhost:8080' in your browser
+## Step 6: Incase the java tools under 'Utilities' section fails, update jdk, jre and system variables - JAVA_HOME and Path 
 # **Application snapshot**
 ## ***View content***
 ![picture](images/viewContent.PNG)
