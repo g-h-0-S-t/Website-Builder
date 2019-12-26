@@ -1,0 +1,23 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.8.3/jquery.csv.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.1.0/js/jquery.jexcel.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.1.0/css/jquery.jexcel.min.css" type="text/css">
+
+<div id="my"></div>
+
+<p><button id="download">Export my spreadsheet as CSV</button></p>
+
+<script>
+    $('#my').jexcel({
+        // Full CSV URL
+        csv: 'demo1.csv',
+        // Use the first row of your CSV as the headers
+        csvHeaders: true,
+        // Headers
+        colWidths: [70, 200, 300],
+    });
+
+    $('#download').on('click', function() {
+        $('#my').jexcel('download');
+    });
+</script>

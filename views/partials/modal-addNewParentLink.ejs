@@ -1,0 +1,32 @@
+<!-- Button trigger modal -->
+<div data-toggle="modal" data-target="#addNewParentLinkModal" onclick="">
+    <i class="fa fa-plus" aria-hidden="true" style="color: #fff; position: absolute; margin-top: 18px; margin-left: 24px;"></i>
+    <button type="button" class="fa fa-bars btn btn-primary" data-toggle="tooltip" data-placement="top" title="Add a new Parent Link"></button>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="addNewParentLinkModal" tabindex="-1" role="dialog" aria-labelledby="addNewParentLinkModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addNewParentLinkModalLabel">Add a new Parent Link</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="parentLinkName">Parent Link Name</label>
+                        <input type="text" class="form-control" id="parentLinkName">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" id="saveNewParentLink" class="btn btn-primary" onclick="saveNewParentLink();" disabled>Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>

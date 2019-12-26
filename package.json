@@ -1,0 +1,21 @@
+{
+    "name": "cms_demo",
+    "version": "1.0.0",
+    "description": "",
+    "main": "server.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "Ribhu <ribhubiswas@gmail.com>",
+    "license": "ISC",
+    "dependencies": {
+        "body-parser": "^1.19.0",
+        "compile-run": "^2.3.2",
+        "ejs": "^2.7.1",
+        "express": "^4.17.1",
+        "file-saver": "^2.0.2",
+        "jsoneditor": "^7.5.0",
+        "node-jre": "^0.2.3",
+        "nodemon": "^1.19.4"
+    }
+}

@@ -1,0 +1,334 @@
+<script type="text/javascript" id="controller">
+    // on window load
+    window.onload = function() {
+        setMainViewHeight();
+        hideLoader('page_loader');
+    };
+    // on window resize
+    window.onresize = function() {
+        setMainViewHeight();
+    };
+    // set main view height
+    var setMainViewHeight = function() {
+        document.getElementById('indexMain').setAttribute('style', 'height:' + (window.innerHeight - 164) + 'px;');
+    };
+    // loader scripts
+    var showLoader = function(id) {
+        document.getElementById(id).style.display = 'block';
+    };
+    var hideLoader = function(id) {
+        document.getElementById(id).style.display = 'none';
+    };
+    $(function() {
+        //initialize all tooltips
+        $('[data-toggle="tooltip"]').tooltip();
+        //initialize summernote editor
+        $('#editablePageData, #addContentTextArea').summernote({
+            height: 300
+        });
+    });
+    // validation
+    $(document).on('input', '.form-control.preventSpecialChars', function() {
+        var c = this.selectionStart,
+            r = /[^a-z0-9]/gi,
+            v = $(this).val();
+        if (r.test(v)) {
+            $(this).val(v.replace(r, ''));
+            c--;
+        }
+        this.setSelectionRange(c, c);
+    });
+    //empty field check
+    $(document).on('keyup', '#editParentLinkName,#parentLinkName, #fileNameEdit, #linkNameEdit, #editCurrentPageModal [contenteditable="true"], #fileName, #linkName, #addNewPageModal [contenteditable="true"]', function() {
+        // for edit parent link modal
+        if ($('#editParentLinkName').val() === '') {
+            $('#saveEditedParentLink').attr('disabled', 'disabled');
+        } else {
+            $('#saveEditedParentLink').removeAttr('disabled');
+        }
+        // for add parent link modal
+        if ($('#parentLinkName').val() === '') {
+            $('#saveNewParentLink').attr('disabled', 'disabled');
+        } else {
+            $('#saveNewParentLink').removeAttr('disabled');
+        }
+        // for edit modal
+        var empty_edit = false;
+        $('#fileNameEdit, #linkNameEdit, #editCurrentPageModal [contenteditable="true"]').each(function() {
+            if (($(this).get(0).tagName === 'INPUT' && $(this).val() === '') || ($(this).get(0).tagName === 'DIV' && $(this).text() === '')) {
+                empty_edit = true;
+            }
+        });
+        if (empty_edit) {
+            $('#saveEditedPageData').attr('disabled', 'disabled');
+        } else {
+            $('#saveEditedPageData').removeAttr('disabled');
+        }
+        // for add modal
+        var empty_add = false;
+        $('#fileName, #linkName, #addNewPageModal [contenteditable="true"]').each(function() {
+            if (($(this).get(0).tagName === 'INPUT' && $(this).val() === '') || ($(this).get(0).tagName === 'DIV' && $(this).text() === '')) {
+                empty_add = true;
+            }
+        });
+        if (empty_add) {
+            $('#saveAddedPageData').attr('disabled', 'disabled');
+        } else {
+            $('#saveAddedPageData').removeAttr('disabled');
+        }
+    });
+    // page reload
+    var refreshPage = function() {
+        location.reload(true);
+    };
+    // load specific page
+    var loadPage = function(routeTo) {
+        location.href = routeTo;
+    };
+    // alert redefined
+    var alertRedefined = function(type, messageHeader, messageBody, pageRefresh, routeTo) {
+        var alertType = {
+            success: {
+                header: 'green',
+                body: 'green'
+            },
+            warning: {
+                header: 'yellow',
+                body: 'yellow'
+            },
+            error: {
+                header: 'red',
+                body: 'red'
+            },
+        };
+        hideLoader('data_loader');
+        $('#alertModal').modal('show');
+        var header = document.getElementById('alertModalTitle');
+        var body = document.getElementById('alertModalContent');
+        // set message
+        header.textContent = messageHeader;
+        body.textContent = messageBody;
+        // set message color
+        header.style.color = alertType[type].header;
+        body.style.color = alertType[type].body;
+        //set route for close button of alert modal
+        document.getElementById('closeAlertModal').setAttribute('onclick', 'loadPage("' + (pageRefresh ? routeTo : '#') + '");');
+    };
+    //exception and route handler
+    var exceptionAndRouteHandler = function(statusCode, messageBody, routeTo) {
+        if (statusCode === 200) {
+            alertRedefined('success', 'Success', messageBody, true, routeTo);
+        } else {
+            alertRedefined('error', 'Error', messageBody);
+        }
+
+    };
+
+    //file downloader
+    var downloadJSON = function(fileName, data) {
+
+        // Create a blob of the data
+        var fileToSave = new Blob([JSON.stringify(data)], {
+            type: 'application/json',
+            name: fileName
+        });
+
+        // Save the file
+        saveAs(fileToSave, fileName);
+    };
+
+    // fetch page content for edit
+    var getPageData = function() {
+        showLoader('data_loader');
+        $.get("/fetchDataForEditingCurrentPage/<%= page %>", function(data) {
+            document.getElementById('fileNameEdit').value = data.fileName;
+            $('#editablePageData').summernote('code', data.content);
+            hideLoader('data_loader');
+        });
+    };
+    // save page content after edit
+    var saveEditedPageData = function() {
+        showLoader('data_loader');
+        $.post('/saveEditedPageData', {
+            'data': {
+                'fileName': document.getElementById('fileNameEdit').value,
+                'linkName': document.getElementById('linkNameEdit').value,
+                'content': document.getElementById('editablePageData').value,
+                'oldFileName': '<%= page %>',
+                'oldLinkName': '<%= pageTitle %>'
+            }
+        }, function(res) {
+            exceptionAndRouteHandler(res.statusCode, res.message, res.routeTo);
+        });
+    };
+    // save page content after edit
+    var saveAddedPageData = function() {
+        showLoader('data_loader');
+        $.post('/saveAddedPageData', {
+            'data': {
+                'fileName': document.getElementById('fileName').value,
+                'parentLink': document.getElementById('parentLink').value,
+                'linkName': document.getElementById('linkName').value,
+                'content': document.getElementById('addContentTextArea').value
+            }
+        }, function(res) {
+            exceptionAndRouteHandler(res.statusCode, res.message, res.routeTo);
+        });
+    };
+    // delete current page
+    var deleteCurrentPage = function() {
+        showLoader('data_loader');
+        $.post('/deleteCurrentPage', {
+            'data': {
+                'fileName': '<%= page %>',
+                'linkName': '<%= pageTitle %>'
+            }
+        }, function(res) {
+            exceptionAndRouteHandler(res.statusCode, res.message, res.routeTo);
+        });
+    };
+    // save new parent link
+    var saveNewParentLink = function() {
+        showLoader('data_loader');
+        $.post('/saveNewParentLink', {
+            'data': {
+                'newParentLink': document.getElementById('parentLinkName').value
+            }
+        }, function(res) {
+            exceptionAndRouteHandler(res.statusCode, res.message, res.routeTo);
+        });
+    };
+    // save edited parent link
+    var saveEditedParentLink = function() {
+        showLoader('data_loader');
+        $.post('/saveEditedParentLink', {
+            'data': {
+                'newParentLink': document.getElementById('editParentLinkName').value,
+                'oldParentLink': '<%= parentLink %>',
+                'fileName': '<%= page %>'
+            }
+        }, function(res) {
+            exceptionAndRouteHandler(res.statusCode, res.message, res.routeTo);
+        });
+    };
+    // set data for parent link deletion
+    var setDataForParentLinkDeletion = function(displayText) {
+        document.getElementById('deleteEmptyParentLinkTitle').textContent = 'Delete Parent Link : ' + displayText + '?';
+        document.getElementById('deleteEmptyParentLinkContent').textContent = 'Are you sure that you want to delete empty Parent Link : ' + displayText + '?';
+        document.getElementById('deleteEmptyParentLink').setAttribute('onclick', 'deleteEmptyParentLink("' + displayText + '")');
+    };
+    // delete empty parent link
+    var deleteEmptyParentLink = function(displayText) {
+        showLoader('data_loader');
+        $.post('/deleteEmptyParentLink', {
+            'data': {
+                'parentLinkName': displayText
+            }
+        }, function(res) {
+            exceptionAndRouteHandler(res.statusCode, res.message, res.routeTo);
+        });
+    };
+    //run Java Code
+    var runJavaCode = function() {
+        showLoader('data_loader');
+        var commands = document.getElementById('javaInput').value;
+        console.log(commands);
+        // return;
+        $.post('/runJavaCode', {
+            'data': {
+                'commands': commands
+            }
+        }, function(res) {
+
+            //exceptionAndRouteHandler(res.statusCode, res.message, res.routeTo);
+
+            document.getElementById('javaOutput').textContent = res.message.text;
+            document.getElementById('javaOutput').style.color = res.message.color;
+
+            // alert(res.message);
+            console.log(res.message);
+            hideLoader('data_loader');
+        });
+    };
+    //AirportcountryMap
+    var AirportcountryMap = function() {
+        showLoader('data_loader');
+        var resultArea = document.getElementById('AirportcountryMap');
+
+        // create the editor
+        var options = {
+            mode: 'text',
+            modes: ['text', 'code'],
+            onEditable: function(node) {
+                if (!node.path) {
+                    // In modes code and text, node is empty: no path, field, or value
+                    // returning false makes the text area read-only
+                    return false;
+                }
+            },
+            onError: function(err) {
+                alert(err.toString())
+            },
+            onModeChange: function(newMode, oldMode) {
+                console.log('Mode switched from', oldMode, 'to', newMode)
+            }
+        };
+        var editor = new JSONEditor(resultArea, options);
+
+
+
+
+        $.post('/AirportcountryMap', {
+            'data': {
+                'test': 'test'
+            }
+        }, function(res) {
+
+            //exceptionAndRouteHandler(res.statusCode, res.message, res.routeTo);
+
+            // resultArea.textContent = res.message.text;
+            // resultArea.style.color = res.message.color;
+
+            // set json
+            // console.log(JSON.parse(res.message.text))
+            var jsonData = JSON.parse('{"Countries and airports":{' + res.message.text + '"EOL":"EOL"}}');
+            var initialJson = jsonData;
+
+            editor.set(initialJson);
+            document.getElementById('downloadAirportCountryMapJSON').onclick = function() {
+                downloadJSON('Countries_Airports_Map.json', initialJson);
+            };
+            // get json
+            var updatedJson = editor.get()
+
+            // alert(res.message);
+            console.log(initialJson);
+            hideLoader('data_loader');
+        });
+    };
+    //send data from Excel Editor to Server
+    var sendDataFromExcelEditorToServer = function() {
+        var elt = document.getElementById('data-table');
+        var excelData = XLSX.utils.table_to_book(elt, {
+            sheet: "Sheet JS"
+        });
+        if (!excelData) {
+            alertRedefined('error', 'Error', 'No Excel Data Available!');
+            return;
+        }
+        console.log('data', excelData.Sheets['Sheet JS']);
+        $.post('/sendDataFromExcelEditorToServer', {
+            'data': excelData.Sheets['Sheet JS'],
+        }, function(res) {
+
+            //exceptionAndRouteHandler(res.statusCode, res.message, res.routeTo);
+
+            // document.getElementById('javaOutput').textContent = res.message.text;
+            // document.getElementById('javaOutput').style.color = res.message.color;
+
+            // alert(res.message);
+            // console.log(res.message);
+            // hideLoader('data_loader');
+        });
+    };
+</script>

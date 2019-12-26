@@ -1,0 +1,1 @@
+class OnlineJavaCompiler {public static void main(String[] args) {System.out.println("Hello World! With love, from on-the-fly-generated-Java-class!!! XD");}}

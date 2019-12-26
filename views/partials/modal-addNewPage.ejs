@@ -1,0 +1,49 @@
+<!-- Button trigger modal -->
+<div data-toggle="modal" data-target="#addNewPageModal" onclick="">
+    <button type="button" class="fa fa-plus btn btn-primary" data-toggle="tooltip" data-placement="top" title="Add new page"></button>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="addNewPageModal" tabindex="-1" role="dialog" aria-labelledby="addNewPageModalLabel" aria-hidden="true">
+
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addNewPageModalLabel">Add a page</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="parentLink">Parent Link</label>
+                        <select class="form-control" id="parentLink">
+                                <option value="">No Parent Link</option>
+                                <% parentLinks.forEach(function(parentLink) { %>
+                                    <option value="<%= parentLink.displayText %>">Group under Parent Link - <%= parentLink.displayText %></option>
+                                <% }); %>
+                            </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="linkName">Link name</label>
+                        <input type="text" class="form-control" id="linkName">
+                    </div>
+                    <div class="form-group">
+                        <label for="fileName">File name (special characters are auto-restricted)</label>
+                        <input type="text" class="form-control preventSpecialChars" id="fileName">
+                    </div>
+                    <div class="form-group">
+                        <label for="addContentTextArea">Content</label>
+                        <textarea class="form-control" id="addContentTextArea" rows="20"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" id="saveAddedPageData" class="btn btn-primary" onclick="saveAddedPageData();" disabled>Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
