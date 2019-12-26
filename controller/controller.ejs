@@ -283,15 +283,8 @@
                 'test': 'test'
             }
         }, function(res) {
-
-            //exceptionAndRouteHandler(res.statusCode, res.message, res.routeTo);
-
-            // resultArea.textContent = res.message.text;
-            // resultArea.style.color = res.message.color;
-
-            // set json
-            // console.log(JSON.parse(res.message.text))
-            var jsonData = JSON.parse('{"Countries and airports":{' + res.message.text + '"EOL":"EOL"}}');
+            
+            var jsonData = JSON.parse(res.message.text);
             var initialJson = jsonData;
 
             editor.set(initialJson);
