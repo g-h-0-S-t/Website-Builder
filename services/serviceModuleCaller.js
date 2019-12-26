@@ -40,8 +40,8 @@ exports.loadServices = function(app, fs, java) {
     // WRITE OPERATIONS - online java compilation
     require('./serviceModules/service_runJavaCode').runJavaCode(app, fs, java);
 
-    // READ OPERATIONS - AirportcountryMap
-    require('./serviceModules/service_CountryCodeAirportCode').AirportcountryMap(app, fs, java);
+    // READ OPERATIONS - JSONViewerDemo
+    require('./serviceModules/service_JSONViewerDemo').JSONViewerDemo(app, fs, java);
 
 
 

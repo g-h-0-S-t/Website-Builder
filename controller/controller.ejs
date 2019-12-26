@@ -250,10 +250,10 @@
             hideLoader('data_loader');
         });
     };
-    //AirportcountryMap
-    var AirportcountryMap = function() {
+    //JSONViewerDemo
+    var JSONViewerDemo = function() {
         showLoader('data_loader');
-        var resultArea = document.getElementById('AirportcountryMap');
+        var resultArea = document.getElementById('JSONViewerDemo');
 
         // create the editor
         var options = {
@@ -278,7 +278,7 @@
 
 
 
-        $.post('/AirportcountryMap', {
+        $.post('/JSONViewerDemo', {
             'data': {
                 'test': 'test'
             }
@@ -288,8 +288,8 @@
             var initialJson = jsonData;
 
             editor.set(initialJson);
-            document.getElementById('downloadAirportCountryMapJSON').onclick = function() {
-                downloadJSON('Countries_Airports_Map.json', initialJson);
+            document.getElementById('downloadJSONViewerDemoJSON').onclick = function() {
+                downloadJSON('JSONViewerDemo.json', initialJson);
             };
             // get json
             var updatedJson = editor.get()

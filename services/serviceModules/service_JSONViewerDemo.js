@@ -1,7 +1,7 @@
-// AirportcountryMap
-exports.AirportcountryMap = function(app, fs, java) {
-    return app.post('/AirportcountryMap', function(req, res) {
-        var javaFile = 'services/java/AirportcountryMap.java';
+// JSONViewerDemo
+exports.JSONViewerDemo = function(app, fs, java) {
+    return app.post('/JSONViewerDemo', function(req, res) {
+        var javaFile = 'services/java/JSONViewerDemo.java';
 
         try {
             java.runFile(javaFile, function(err, result) {
