@@ -10,7 +10,7 @@ exports.AirportcountryMap = function(app, fs, java) {
                 res.send({ statusCode: 200, message: messageObject });
             });
         } catch (err) {
-            console.error(err)
+            console.error(err);
         }
     });
 }

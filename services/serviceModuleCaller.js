@@ -1,4 +1,4 @@
-exports.loadServices = function(app, fs, jre, java) {
+exports.loadServices = function(app, fs, java) {
 
     // setting router variables for utilisation by services
     var routerFile = 'model/headerModel.json';
@@ -36,19 +36,7 @@ exports.loadServices = function(app, fs, jre, java) {
     require('./serviceModules/service_sendDataFromExcelEditorToServer').processExcelWorkBook(app, fs, headerModel, routerFile);
 
     /********** JAVA Services (start) **********/
-
-    var output = jre.spawnSync( // call synchronously
-        ['services/java'], // add the relative directory 'java' to the class-path
-        'Hello', // call main routine in class 'Hello'
-        ['World'], // pass 'World' as only parameter
-        { encoding: 'utf8' } // encode output as string
-    ).stdout.trim(); // take output from stdout as trimmed String
-    console.log('output >>> ', output); // Should print 'Hello, World!'
-
-
-
-
-
+    
     // WRITE OPERATIONS - online java compilation
     require('./serviceModules/service_runJavaCode').runJavaCode(app, fs, java);
 

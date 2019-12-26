@@ -3,7 +3,6 @@ var express = require('express');
 var app = express();
 var fs = require('fs');
 var bodyParser = require('body-parser');
-var jre = require('node-jre');
 var { c, cpp, node, python, java } = require('compile-run');
 // set the view engine to ejs
 app.set('view engine', 'ejs');
@@ -21,7 +20,7 @@ app.use(express.static('controller'));
 app.use(express.static('ExcelFiles'));
 
 // load all services
-require('./services/serviceModuleCaller').loadServices(app, fs, jre, java);
+require('./services/serviceModuleCaller').loadServices(app, fs, java);
 
 // start app
 app.listen(8080);

@@ -15,7 +15,6 @@
         "express": "^4.17.1",
         "file-saver": "^2.0.2",
         "jsoneditor": "^7.5.0",
-        "node-jre": "^0.2.3",
         "nodemon": "^1.19.4"
     }
 }
