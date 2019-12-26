@@ -1,5 +1,5 @@
 # **Description**
-## A simple tool for managing content. Create content with add, update and delete features.
+## A simple tool for managing content. Create content with add, update and delete features. Can also be used to host other applications.
 # **Tech stack**
 ## NodeJS, Express, EJS, CSS 3, ES 5/6, jQuery 3.4.1, Popper 1.16.0, Bootstrap 4.3.1, Font Awesome 4.7.0, Summer Note 0.8.12, JSON Editor, FileSaver.js, etc.
 # **Instructions for running this app locally**
