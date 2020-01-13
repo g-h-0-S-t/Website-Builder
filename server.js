@@ -23,5 +23,5 @@ app.use(express.static('ExcelFiles'));
 require('./services/serviceModuleCaller').loadServices(app, fs, java);
 
 // start app
-app.listen(8080);
+// app.listen(8080); // use this for localhost
 console.log('8080 is the magic port');
