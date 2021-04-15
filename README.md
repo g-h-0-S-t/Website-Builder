@@ -17,7 +17,3 @@
 ## ***Edit content***
 ![picture](images/editContent.PNG)
 ## ***etc... And many more to come!!***
-# **Contact person**
-## Ribhu Biswas
-## ribhubiswas@gmail.com
-## +91 9845403046
