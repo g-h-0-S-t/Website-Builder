@@ -1,0 +1,83 @@
+[
+    {
+        "url": "/",
+        "page": "home",
+        "displayText": "Home",
+        "locked": true
+    },
+    {
+        "url": "#",
+        "displayText": "My favourites",
+        "locked": false,
+        "pages": [
+            {
+                "url": "/Myfavouritewebarticles",
+                "page": "Myfavouritewebarticles",
+                "displayText": "My favourite web articles",
+                "parentLink": "My favourites",
+                "locked": false
+            },
+            {
+                "url": "/Myfavouritelifestylechoices",
+                "page": "Myfavouritelifestylechoices",
+                "displayText": "My favourite lifestyle choices",
+                "parentLink": "My favourites",
+                "locked": false
+            }
+        ]
+    },
+    {
+        "url": "#",
+        "displayText": "Tools",
+        "locked": false,
+        "pages": [
+            {
+                "url": "/3rdPartyTools",
+                "page": "3rdPartyTools",
+                "displayText": "3rd Party Tools",
+                "parentLink": "Tools",
+                "locked": false
+            },
+            {
+                "url": "/JavaCompiler",
+                "page": "JavaCompiler",
+                "displayText": "Java Compiler",
+                "parentLink": "Tools",
+                "locked": false
+            },
+            {
+                "url": "/JSONViewerDemo",
+                "page": "JSONViewerDemo",
+                "displayText": "JSONViewerDemo",
+                "parentLink": "Tools",
+                "locked": false
+            },
+            {
+                "url": "/CSVEditor",
+                "page": "CSVEditor",
+                "displayText": "CSV Editor",
+                "parentLink": "Tools",
+                "locked": false
+            },
+            {
+                "url": "/ExcelEditor",
+                "page": "ExcelEditor",
+                "displayText": "Excel Editor",
+                "parentLink": "Tools",
+                "locked": false
+            }
+        ]
+    },
+    {
+        "url": "#",
+        "displayText": "Deletable Empty Parent Link",
+        "locked": false,
+        "pages": []
+    },
+    {
+        "url": "/MySocialMediaAccounts",
+        "page": "MySocialMediaAccounts",
+        "displayText": "My Social Media Accounts",
+        "locked": false
+    }
+]

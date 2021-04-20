@@ -1,0 +1,67 @@
+/** page structure (start) **/
+
+#indexHeader {
+    /* max-width: 1110px;
+    width: 100%; */
+    background-color: #343A40;
+    border: 1px solid #343A40;
+}
+
+#indexMain {
+    /* max-width: 1128px;
+    width: 100%; */
+    overflow-y: auto;
+    overflow-x: hidden;
+    /* overflow-x: hidden; */
+    padding: 1rem;
+}
+
+#indexFooter {
+    /* max-width: 1110px;
+    width: 100%; */
+    background-color: #343A40;
+    border: 1px solid #343A40;
+}
+
+#indexFooter * {
+    background-color: #343A40;
+    color: rgba(255, 255, 255, .5);
+    padding: .5rem 1rem;
+    margin: auto;
+}
+
+
+/* .modal-backdrop {
+    z-index: 0;
+} */
+
+
+/** page structure (end) **/
+
+#editablePageData {
+    /* height: 700px; */
+    width: 100%;
+}
+
+.note-popover {
+    display: none;
+}
+
+.note-editor.note-frame.fullscreen {
+    background-color: #fff;
+}
+
+.breadcrumbs * {
+    font-weight: bold;
+    background-color: transparent;
+    color: #fff;
+}
+
+#JSONViewerDemo {
+    margin-top: 1em;
+    height: calc(100% - 4em);
+}
+
+.jumbotron {
+    background-color: #fff;
+}

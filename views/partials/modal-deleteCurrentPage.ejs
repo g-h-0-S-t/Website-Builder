@@ -1,0 +1,40 @@
+<!-- Button trigger modal -->
+<% if (locked) { %>
+
+    <div>
+        <i class="fa fa-lock" aria-hidden="true" style="color: #fff; position: absolute; margin-top: 18px; margin-left: 24px;"></i>
+        <button type="button" class="fa fa-trash btn btn-primary" style="opacity: .65;" data-toggle="tooltip" data-placement="top" title="Delete is locked for <%= pageTitle %> page"></button>
+    </div>
+
+    <% } else { %>
+        <div data-toggle="modal" data-target="#deleteCurrentPageModal">
+            <button type="button" class="fa fa-trash btn btn-primary" data-toggle="tooltip" data-placement="top" title="Delete <%= pageTitle %> page"></button>
+        </div>
+
+        <% } %>
+
+
+
+            <!-- Modal -->
+            <div class="modal fade" id="deleteCurrentPageModal" tabindex="-1" role="dialog" aria-labelledby="deleteCurrentPageModalTitle" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="deleteCurrentPageModalTitle">Delete
+                                <%= pageTitle %> page</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+                        </div>
+                        <div class="modal-body">
+                            <div>Are you sure that you want to delete
+                                <%= pageTitle %> page?</div>
+                            <div>The associated file and respective link pointing to that file will also be removed from the server.</div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" id="deleteCurrentPage" class="btn btn-danger" onclick="deleteCurrentPage();">Continue with Deletion</button>
+                        </div>
+                    </div>
+                </div>
+            </div>

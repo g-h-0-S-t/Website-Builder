@@ -1,0 +1,51 @@
+<!-- Button trigger modal -->
+<% if (locked) { %>
+
+    <div>
+        <i class="fa fa-lock" aria-hidden="true" style="color: #fff; position: absolute; margin-top: 18px; margin-left: 24px;"></i>
+        <button type="button" class="fa fa-pencil btn btn-primary" style="opacity: .65;" data-toggle="tooltip" data-placement="top" title="Edit is locked for <%= pageTitle %> page"></button>
+    </div>
+
+    <% } else { %>
+        <div data-toggle="modal" data-target="#editCurrentPageModal" onclick="getPageData();">
+            <button type="button" class="fa fa-pencil btn btn-primary" data-toggle="tooltip" data-placement="top" title="Edit <%= pageTitle %> page"></button>
+        </div>
+
+        <% } %>
+
+
+
+            <!-- Modal -->
+            <div class="modal fade" id="editCurrentPageModal" tabindex="-1" role="dialog" aria-labelledby="editCurrentPageModalTitle" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editCurrentPageModalTitle">Edit
+                                <%= pageTitle %> page</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+                        </div>
+                        <div class="modal-body">
+                            <form method="post">
+                                <div class="form-group">
+                                    <label for="linkNameEdit">Link name</label>
+                                    <input type="text" class="form-control" id="linkNameEdit" value="<%= pageTitle %>">
+                                </div>
+                                <div class="form-group">
+                                    <label for="fileNameEdit">File name (special characters are auto-restricted)</label>
+                                    <input type="text" class="form-control preventSpecialChars" id="fileNameEdit">
+                                </div>
+                                <div class="form-group">
+                                    <label for="editablePageData">Content</label>
+                                    <textarea id="editablePageData" rows="20"></textarea>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" id="saveEditedPageData" class="btn btn-primary" onclick="saveEditedPageData();">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
