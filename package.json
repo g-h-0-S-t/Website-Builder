@@ -18,6 +18,6 @@
         "file-saver": "^2.0.5",
         "jsoneditor": "^9.5.0",
         "morgan": "^1.10.0",
-        "nodemon": "^2.0.7"
+        "nodemon": "^2.0.8"
     }
 }
