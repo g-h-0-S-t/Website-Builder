@@ -1,4 +1,4 @@
-<img src="https://www.freepngimg.com/thumb/gold/66313-red-tech-gear-gold-icon-free-download-png-hd.png" width="200" />  
+<img src="https://www.freepngimg.com/thumb/gold/66313-red-tech-gear-gold-icon-free-download-png-hd.png" width="200" title="Dev Tools" alt="Dev Tools" />  
 
 # **Description**
 ## A simple website builder.
