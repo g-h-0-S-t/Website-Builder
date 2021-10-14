@@ -1,3 +1,5 @@
+<img src="https://www.freepngimg.com/thumb/gold/66313-red-tech-gear-gold-icon-free-download-png-hd.png" width="200" />  
+
 # **Description**
 ## A simple website builder.
 # **Tech stack**
