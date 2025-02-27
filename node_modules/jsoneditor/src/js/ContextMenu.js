@@ -9,8 +9,10 @@ import { translate } from './i18n'
  * @param {Object[]} items    Array containing the menu structure
  *                            TODO: describe structure
  * @param {Object} [options]  Object with options. Available options:
- *                            {function} close    Callback called when the
- *                                                context menu is being closed.
+ *                            {function} close        Callback called when the
+ *                                                    context menu is being closed.
+ *                            {boolean} limitHeight   Whether ContextMenu height should be
+ *                                                    limited or not.
  * @constructor
  */
 export class ContextMenu {
@@ -24,6 +26,7 @@ export class ContextMenu {
     this.eventListeners = {}
     this.selection = undefined // holds the selection before the menu was opened
     this.onClose = options ? options.close : undefined
+    this.limitHeight = options ? options.limitHeight : false
 
     // create root element
     const root = document.createElement('div')
@@ -107,7 +110,9 @@ export class ContextMenu {
               buttonExpand.type = 'button'
               domItem.buttonExpand = buttonExpand
               buttonExpand.className = 'jsoneditor-expand'
-              buttonExpand.innerHTML = '<div class="jsoneditor-expand"></div>'
+              const buttonExpandInner = document.createElement('div')
+              buttonExpandInner.className = 'jsoneditor-expand'
+              buttonExpand.appendChild(buttonExpandInner)
               li.appendChild(buttonExpand)
               if (item.submenuTitle) {
                 buttonExpand.title = item.submenuTitle
@@ -141,8 +146,14 @@ export class ContextMenu {
             createMenuItems(ul, domSubItems, item.submenu)
           } else {
             // no submenu, just a button with clickhandler
-            button.innerHTML = '<div class="jsoneditor-icon"></div>' +
-                '<div class="jsoneditor-text">' + translate(item.text) + '</div>'
+            const icon = document.createElement('div')
+            icon.className = 'jsoneditor-icon'
+            button.appendChild(icon)
+
+            const text = document.createElement('div')
+            text.className = 'jsoneditor-text'
+            text.appendChild(document.createTextNode(translate(item.text)))
+            button.appendChild(text)
           }
 
           domItems.push(domItem)
@@ -232,6 +243,15 @@ export class ContextMenu {
       this.dom.menu.style.left = '0'
       this.dom.menu.style.top = ''
       this.dom.menu.style.bottom = '0px'
+    }
+
+    if (this.limitHeight) {
+      const margin = 10 // make sure there is a little margin left
+      const maxPossibleMenuHeight = showBelow
+        ? frameRect.bottom - anchorRect.bottom - margin
+        : anchorRect.top - frameRect.top - margin
+      this.dom.list.style.maxHeight = maxPossibleMenuHeight + 'px'
+      this.dom.list.style.overflowY = 'auto'
     }
 
     // attach the menu to the temporary, absolute anchor
@@ -425,5 +445,3 @@ export class ContextMenu {
 
 // currently displayed context menu, a singleton. We may only have one visible context menu
 ContextMenu.visibleMenu = undefined
-
-export default ContextMenu
