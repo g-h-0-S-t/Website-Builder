@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>SheetJS JS-XLSX In-Browser HTML Table Export Demo</title>
+    <meta charset="utf-8" />
+    <style>
+        .xport,
+        .btn {
+            display: inline;
+            text-align: center;
+        }
+        
+        a {
+            text-decoration: none
+        }
+        
+        #data-table,
+        #data-table th,
+        #data-table td {
+            border: 1px solid black
+        }
+    </style>
+</head>
+
+<body>
+    <![if gt IE 9]>
+    <script type="text/javascript" src="/sheetjs/shim.min.js"></script>
+    <script type="text/javascript" src="/sheetjs/xlsx.full.min.js"></script>
+    <script type="text/javascript" src="/sheetjs/Blob.js"></script>
+    <![endif]>
+    <script src="/sheetjs/spin.js"></script>
+    <script src="/sheetjs/alertify.js"></script>
+    <link rel="stylesheet" media="screen" href="/sheetjs/alertify.css">
+
+    <!--[if lte IE 9]>
+<script type="text/javascript" src="/sheetjs/shim.min.js"></script>
+<script type="text/javascript" src="/sheetjs/xlsx.full.min.js"></script>
+
+<script type="text/javascript" src="/sheetjs/Blob.js"></script>
+<![endif]-->
+
+    <!--[if lte IE 9]>
+<script type="text/javascript" src="/sheetjs/swfobject.js"></script>
+<script type="text/javascript" src="/sheetjs/downloadify.min.js"></script>
+<script type="text/javascript" src="/sheetjs/base64.min.js"></script>
+<![endif]-->
+
+    <script>
+        function doit(type, fn, dl) {
+            var elt = document.getElementById('data-table');
+            var wb = XLSX.utils.table_to_book(elt, {
+                sheet: "Sheet JS"
+            });
+            return dl ?
+                XLSX.write(wb, {
+                    bookType: type,
+                    bookSST: true,
+                    type: 'base64'
+                }) :
+                XLSX.writeFile(wb, fn || ('test.' + (type || 'xlsx')));
+        }
+    </script>
+    <pre><h3><a href="//sheetjs.com/">SheetJS</a> JS-XLSX In-Browser HTML Table Edit Demo</h3>
+This demonstration focuses on HTML contenteditable.  You can drop a workbook
+into the box and your browser will update the editable HTML table below.  After
+making changes, you can generate a new file with the table contents.
+<div id="drop">
+      +---------------------------------------------------------+
+   \\ |                                                         | //
+----\\|    <b>Drop a spreadsheet file here to change table data</b>    |//----
+------|                                                         |------
+----//|   (note: this demo will only process the first sheet)   |\\----
+   // |                                                         | \\
+      +---------------------------------------------------------+
+</div>
+
+Need a file? <a href="https://obamawhitehouse.archives.gov/sites/default/files/omb/budget/fy2014/assets/receipts.xls">OMB FY 2014 Federal Receipts</a>
+
+<b>Editable Data Table:</b> (click a cell to edit it)
+</pre>
+    <table id="data-table" border="1">
+        <tr>
+            <td contenteditable="true" colspan="4">Some merged cell</td>
+        </tr>
+        <tr>
+            <td contenteditable="true">This</td>
+            <td contenteditable="true">is</td>
+            <td contenteditable="true">a</td>
+            <td contenteditable="true">Test</td>
+        </tr>
+        <tr>
+            <td contenteditable="true">Fee</td>
+            <td contenteditable="true">Fi</td>
+            <td contenteditable="true">Fo</td>
+            <td contenteditable="true">Fum</td>
+        </tr>
+        <tr>
+            <td contenteditable="true">Foo</td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true">Bar</td>
+            <td contenteditable="true"></td>
+        </tr>
+        <tr>
+            <td contenteditable="true"></td>
+            <td contenteditable="true">Baz</td>
+            <td contenteditable="true">&#x2603;</td>
+            <td contenteditable="true">Qux</td>
+        </tr>
+        <tr>
+            <td contenteditable="true">1</td>
+            <td contenteditable="true">2</td>
+            <td contenteditable="true">3</td>
+            <td contenteditable="true">4</td>
+        </tr>
+    </table>
+    <br />
+    <p id="sendDataFromExcelEditorToServer_Container" class="xport"><button type="button" id="sendDataFromExcelEditorToServer" class="btn btn-primary" onclick="sendDataFromExcelEditorToServer();">Send To Server</button></p>
+    <br /><br />
+    <pre><b>Export it!</b></pre>
+    <table id="xport">
+        <tr>
+            <td><pre>XLSX Excel 2007+ XML</pre></td>
+            <td>
+                <p id="xportxlsx" class="xport"><input type="submit" value="Export to XLSX!" onclick="doit('xlsx');"></p>
+                <p id="xlsxbtn" class="btn">Flash required for actually downloading the generated file.</p>
+            </td>
+        </tr>
+        <tr>
+            <td><pre>XLSB Excel 2007+ Binary</pre></td>
+            <td>
+                <p id="xportxlsb" class="xport"><input type="submit" value="Export to XLSB!" onclick="doit('xlsb');"></p>
+                <p id="xlsbbtn" class="btn">Flash required for actually downloading the generated file.</p>
+            </td>
+        </tr>
+        <tr>
+            <td><pre>Comma Separated Values</pre></td>
+            <td>
+                <p id="xportcsv" class="xport"><input type="submit" value="Export to CSV!" onclick="doit('csv');"></p>
+                <p id="csvbtn" class="btn">Flash required for actually downloading the generated file.</p>
+            </td>
+        </tr>
+    </table>
+    <pre><b>Powered by the <a href="//sheetjs.com/opensource">community version of sheetjs</a></b>
+
+<b>Compatibility notes:</b>
+- Editable table leverages the HTML5 contenteditable feature, supported in most browsers.
+- IE6-9 requires ActiveX or Flash to download files.
+- iOS Safari file download may not work. <a href="https://git.io/ios_save">This is a known issue</a>.
+- Importing a file requires support for the <a href="https://caniuse.com/#feat=fileapi">HTML5 File API</a>
+</pre>
+    <script type="text/javascript">
+        var excelData;
+
+        function tableau(pid, iid, fmt, ofile) {
+            if (typeof Downloadify !== 'undefined') Downloadify.create(pid, {
+                swf: 'downloadify.swf',
+                downloadImage: 'download.png',
+                width: 100,
+                height: 30,
+                filename: ofile,
+                data: function() {
+                    return doit(fmt, ofile, true);
+                },
+                transparent: false,
+                append: false,
+                dataType: 'base64',
+                onComplete: function() {
+                    alert('Your File Has Been Saved!');
+                },
+                onCancel: function() {
+                    alert('You have cancelled the saving of this file.');
+                },
+                onError: function() {
+                    alert('You must put something in the File Contents or there will be nothing to save!');
+                }
+            });
+            else document.getElementById(pid).innerHTML = "";
+        }
+        tableau('xlsbbtn', 'xportxlsb', 'xlsb', 'SheetJSTest.xlsb');
+        tableau('xlsxbtn', 'xportxlsx', 'xlsx', 'SheetJSTest.xlsx');
+        tableau('csvbtn', 'xportcsv', 'csv', 'SheetJSTest.csv');
+
+        var pending = false;
+        var rABS = typeof FileReader !== "undefined" && typeof FileReader.prototype !== "undefined" && typeof FileReader.prototype.readAsBinaryString !== "undefined";
+
+        function fixdata(data) {
+            var o = "",
+                l = 0,
+                w = 10240;
+            for (; l < data.byteLength / w; ++l) o += String.fromCharCode.apply(null, new Uint8Array(data.slice(l * w, l * w + w)));
+            o += String.fromCharCode.apply(null, new Uint8Array(data.slice(l * w)));
+            return o;
+        }
+
+        function process_wb(wb) {
+            excelData = wb;
+            console.log('wb -> ', excelData);
+            var o = XLSX.utils.sheet_to_html(wb.Sheets[wb.SheetNames[0]], {
+                editable: true
+            }).replace("<table", '<table id="data-table" border="1"')
+            spinner.stop();
+            document.getElementById('data-table').outerHTML = o;
+            pending = false;
+        }
+        var drop = document.getElementById('drop');
+        var spinner;
+
+        function xw(data, cb) {
+            pending = true;
+            spinner = new Spinner().spin(drop);
+            var worker = new Worker('/sheetjs/modify.js');
+            worker.onmessage = function(e) {
+                switch (e.data.t) {
+                    case 'ready':
+                        break;
+                    case 'e':
+                        pending = false;
+                        console.error(e.data.d);
+                        break;
+                    case 'xlsx':
+                        cb(JSON.parse(e.data.d));
+                        break;
+                }
+            };
+            var arr = rABS ? data : btoa(fixdata(data));
+            worker.postMessage({
+                d: arr,
+                b: rABS
+            });
+        }
+
+        function handleDrop(e) {
+            e.stopPropagation();
+            e.preventDefault();
+            if (pending) return alertify.alert('Please wait until the current file is processed.', function() {});
+            var files = e.dataTransfer.files;
+            var f = files[0];
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                if (typeof console !== 'undefined') console.log("onload", new Date());
+                var data = e.target.result;
+
+                function doitnow() {
+                    try {
+                        xw(data, process_wb);
+                    } catch (e) {
+                        console.log(e);
+                        alertify.alert('We unfortunately dropped the ball here.  Please test the file using the <a href="/sheetjs/">raw parser</a>.  If there are issues with the file processor, please send this file to <a href="mailto:dev@sheetjs.com?subject=I+broke+your+stuff">dev@sheetjs.com</a> so we can make things right.', function() {});
+                        pending = false;
+                    }
+                }
+                if (e.target.result.length > 1e6) alertify.confirm("This file is " + e.target.result.length + " bytes and may take a few moments.  Your browser may lock up during this process.  Shall we play?", function(k) {
+                    if (k) doitnow();
+                });
+                else doitnow();
+            };
+            if (rABS) reader.readAsBinaryString(f);
+            else reader.readAsArrayBuffer(f);
+        }
+
+        function handleDragover(e) {
+            e.stopPropagation();
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'copy';
+        }
+
+
+        if (drop.addEventListener) {
+            drop.addEventListener('dragenter', handleDragover, false);
+            drop.addEventListener('dragover', handleDragover, false);
+            drop.addEventListener('drop', handleDrop, false);
+        }
+    </script>
+</body>
+
+</html>

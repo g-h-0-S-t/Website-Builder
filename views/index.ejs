@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('./partials/head') %>
+</head>
+
+<body>
+    <header id="indexHeader">
+        <%- include('./partials/header') %>
+    </header>
+    <%- include('./partials/loader') %>
+        <%- include('../controller/controller') %>
+            <main id="indexMain">
+                <%- include('./pages/' + page) %>
+            </main>
+            <footer id="indexFooter">
+                <%- include('./partials/footer') %>
+                    <%- include('./partials/modal-alert') %>
+            </footer>
+</body>
+
+</html>
