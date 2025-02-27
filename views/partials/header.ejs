@@ -1,29 +1,36 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark" role="navigation">
-
-    <a target="_blank" rel="noopener noreferrer" class="navbar-brand" href="https://github.com/g-h-0-S-t/Website-Builder"><i class="fa fa-globe" aria-hidden="true"></i> Website Builder</a>
+    <a target="_blank" rel="noopener noreferrer" class="navbar-brand"
+        href="https://github.com/g-h-0-S-t/Website-Builder">
+        <i class="fa fa-globe" aria-hidden="true"></i> Website Builder
+    </a>
 
     <div class="collapse navbar-collapse">
         <ul class="navbar-nav mr-auto">
-
             <% headerModel.forEach(function(headerLink) { %>
                 <li class="nav-item <%= headerLink.pages ? 'dropdown' : '' %>">
-
-
                     <% if (headerLink.pages) { %>
                         <% if (headerLink.pages.length===0) { %>
-                            <span data-toggle="modal" data-target="#deleteEmptyParentLink" style="float: left; margin-top: 7px; margin-left: -5px; margin-right: 5px;" onclick="setDataForParentLinkDeletion('<%= headerLink.displayText %>');">
-                                <button class="fa fa-trash" style="color: rgba(255,255,255,.5); background-color: transparent; border: none; margin-right: -7px;" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Delete empty parent Link <%= headerLink.displayText %>"></button>
+                            <span data-toggle="modal" data-target="#deleteEmptyParentLink"
+                                style="float: left; margin-top: 7px; margin-left: -5px; margin-right: 5px;"
+                                onclick="setDataForParentLinkDeletion('<%= headerLink.displayText %>');">
+                                <button class="fa fa-trash"
+                                    style="color: rgba(255,255,255,.5); background-color: transparent; border: none; margin-right: -7px;"
+                                    aria-hidden="true" data-toggle="tooltip" data-placement="top"
+                                    title="Delete empty parent Link <%= headerLink.displayText %>"></button>
                             </span>
                             <% } %>
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown<%= headerLink.displayText %>" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle" href="#"
+                                    id="navbarDropdown<%= headerLink.displayText %>" role="button"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <%= headerLink.displayText %>
                                 </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown<%= headerLink.displayText %>">
-
+                                <div class="dropdown-menu"
+                                    aria-labelledby="navbarDropdown<%= headerLink.displayText %>">
                                     <% headerLink.pages.forEach(function(headerSubLink) { %>
-
                                         <% if (headerSubLink.locked) { %>
-                                            <a class="dropdown-item" href="<%= headerSubLink.url %>" data-toggle="tooltip" data-placement="top" title="Edit / Delete is locked for <%= headerSubLink.displayText %> page %>">
+                                            <a class="dropdown-item" href="<%= headerSubLink.url %>"
+                                                data-toggle="tooltip" data-placement="top"
+                                                title="Edit / Delete is locked for <%= headerSubLink.displayText %> page">
                                                 <i class="fa fa-lock" aria-hidden="true"></i>
                                                 <%= headerSubLink.displayText %>
                                             </a>
@@ -33,15 +40,12 @@
                                                 </a>
                                                 <% } %>
                                                     <% }); %>
-
-
                                 </div>
-                                <% } else {%>
-
-
-
+                                <% } else { %>
                                     <% if (headerLink.locked) { %>
-                                        <a class="nav-item nav-link" href="<%= headerLink.url %>" data-toggle="tooltip" data-placement="top" title="Edit / Delete is locked for <%= headerLink.displayText %> page %>">
+                                        <a class="nav-item nav-link" href="<%= headerLink.url %>" data-toggle="tooltip"
+                                            data-placement="top"
+                                            title="Edit / Delete is locked for <%= headerLink.displayText %> page">
                                             <i class="fa fa-lock" aria-hidden="true"></i>
                                             <%= headerLink.displayText %>
                                         </a>
@@ -53,33 +57,25 @@
                                                 <% } %>
                 </li>
                 <% }); %>
-
-
         </ul>
     </div>
 
-    <% include ./modal-deleteEmptyParentLink %>
+    <%- include('./modal-deleteEmptyParentLink') %>
         &nbsp;&nbsp;&nbsp;
         <% if (parentLink) { %>
-            <% include ./modal-editCurrentParentLink %>
+            <%- include('./modal-editCurrentParentLink') %>
                 &nbsp;&nbsp;&nbsp;
                 <% } %>
-                    <% include ./modal-addNewParentLink %>
+                    <%- include('./modal-addNewParentLink') %>
                         &nbsp;&nbsp;&nbsp;
-                        <% include ./modal-deleteCurrentPage %>
+                        <%- include('./modal-deleteCurrentPage') %>
                             &nbsp;&nbsp;&nbsp;
-                            <% include ./modal-editCurrentPage %>
+                            <%- include('./modal-editCurrentPage') %>
                                 &nbsp;&nbsp;&nbsp;
-                                <% include ./modal-addNewPage %>
+                                <%- include('./modal-addNewPage') %>
 </nav>
 
-
-
-
-
-
 <nav class="breadcrumbs" aria-label="breadcrumb">
-
     <ol class="breadcrumb">
         <li>Current page : &nbsp;</li>
         <% if (parentLink) { %>
@@ -91,5 +87,4 @@
                     <%= pageTitle %>
                 </li>
     </ol>
-
 </nav>
