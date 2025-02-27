@@ -2,21 +2,21 @@
 <html lang="en">
 
 <head>
-    <% include ./partials/head %>
+    <%- include('./partials/head') %>
 </head>
 
 <body>
     <header id="indexHeader">
-        <% include ./partials/header %>
+        <%- include('./partials/header') %>
     </header>
-    <% include ./partials/loader %>
-        <% include ../controller/controller %>
+    <%- include('./partials/loader') %>
+        <%- include('../controller/controller') %>
             <main id="indexMain">
-                <%- include('./pages/'+page) %>
+                <%- include('./pages/' + page) %>
             </main>
             <footer id="indexFooter">
-                <% include ./partials/footer %>
-                    <% include ./partials/modal-alert %>
+                <%- include('./partials/footer') %>
+                    <%- include('./partials/modal-alert') %>
             </footer>
 </body>
 

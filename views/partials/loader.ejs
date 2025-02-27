@@ -8,7 +8,7 @@
 </div>
 <style>
     /** loader (start) **/
-    
+
     .loaderText {
         position: absolute;
         top: 0;
@@ -20,7 +20,7 @@
         width: 45%;
         font-size: 7rem;
     }
-    
+
     div#page_loader,
     div#data_loader {
         position: absolute;
@@ -31,7 +31,7 @@
         background-color: white;
         z-index: 99;
     }
-    
+
     .loader,
     .loader:before,
     .loader:after {
@@ -41,7 +41,7 @@
         width: 1em;
         height: 4em;
     }
-    
+
     .loader {
         color: #0080ff;
         text-indent: -9999em;
@@ -58,48 +58,53 @@
         bottom: 0;
         left: 0;
     }
-    
+
     .loader:before,
     .loader:after {
         position: absolute;
         top: 0;
         content: '';
     }
-    
+
     .loader:before {
         left: -1.5em;
         -webkit-animation-delay: -0.32s;
         animation-delay: -0.32s;
     }
-    
+
     .loader:after {
         left: 1.5em;
     }
-    
+
     @-webkit-keyframes load1 {
+
         0%,
         80%,
         100% {
             box-shadow: 0 0;
             height: 4em;
         }
+
         40% {
             box-shadow: 0 -2em;
             height: 5em;
         }
     }
-    
+
     @keyframes load1 {
+
         0%,
         80%,
         100% {
             box-shadow: 0 0;
             height: 4em;
         }
+
         40% {
             box-shadow: 0 -2em;
             height: 5em;
         }
     }
+
     /** loader (end) **/
 </style>
